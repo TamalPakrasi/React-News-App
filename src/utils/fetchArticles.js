@@ -2,7 +2,7 @@ import { setArticles } from "../features/article.slice.js";
 import { store } from "../store/store.js";
 
 export const fetchArticles = async (catagory) => {
-  const articles = store.getState().articles;
+  const articles = store.getState().article.articles;
 
   if (articles[catagory]) {
     return articles[catagory];
