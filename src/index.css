@@ -3,8 +3,20 @@
   themes: light --default, dark --prefersdark;
 }
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @layer base {
   #root {
-    @apply relative;
+    @apply relative min-h-[100dvh] flex flex-col;
+  }
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .flex-between {
+    @apply flex justify-between items-center;
   }
 }

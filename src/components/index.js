@@ -1,3 +1,4 @@
 import Navbar from "./Navbar.jsx";
+import NewsCard from "./NewsCard.jsx";
 
-export { Navbar };
+export { Navbar, NewsCard };

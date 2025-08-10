@@ -33,7 +33,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar bg-base-100 shadow-sm sticky top-0 left-0">
+    <nav className="navbar backdrop-blur-xl shadow-sm sticky top-0 left-0 z-100">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -53,20 +53,6 @@ function Navbar() {
               />{" "}
             </svg>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            {/* <li>
-              <Link>Homepage</Link>
-            </li>
-            <li>
-              <Link>Portfolio</Link>
-            </li>
-            <li>
-              <Link>About</Link>
-            </li> */}
-          </ul>
         </div>
       </div>
       <div className="navbar-center">
