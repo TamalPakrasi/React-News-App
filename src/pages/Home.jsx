@@ -1,6 +1,6 @@
 import React from "react";
 
-function Home({ setOpen }) {
+function Home() {
   return (
     <div className="hero bg-base-200 flex-grow-1">
       <div className="hero-content text-center">

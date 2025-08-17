@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
-function Nav({ setPage }) {
-  const catagories = [
+function Nav({ setPage, theme, setTheme, setCategory }) {
+  const categories = [
     "business",
     "entertainment",
     "general",
@@ -10,17 +10,6 @@ function Nav({ setPage }) {
     "sports",
     "technology",
   ];
-
-  const preferTheme = () => {
-    return matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  };
-
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem("theme") ?? preferTheme();
-    return saved;
-  });
 
   const handleMedia = (e) => {
     setTheme(e.matches ? "dark" : "light");
@@ -75,17 +64,25 @@ function Nav({ setPage }) {
               <button onClick={() => setPage("home")}>Homepage</button>
             </li>
             <li>
-              <button onClick={() => setPage("news")}>News</button>
+              <button
+                onClick={() => {
+                  setPage("news");
+                  setCategory("");
+                }}
+              >
+                News
+              </button>
               <ul>
-                {catagories.map((catagory) => (
-                  <li key={catagory}>
+                {categories.map((category) => (
+                  <li key={category}>
                     <button
                       onClick={() => {
                         setPage("news");
+                        setCategory(category);
                       }}
                       className="capitalize"
                     >
-                      {catagory}
+                      {category}
                     </button>
                   </li>
                 ))}
