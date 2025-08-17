@@ -1,7 +1,8 @@
 import React from "react";
+import { Nav } from "./components";
 
 function App() {
-  return <div className="text-red-500">App</div>;
+  return <Nav />;
 }
 
 export default App;
