@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 
 function AutoComplete({ input, setInput }) {
+  const [activeListCount, setActiveListCount] = useState(-1);
+  const [isMoving, setIsMoving] = useState(false);
+
   const catagories = [
     "business",
     "entertainment",
@@ -15,12 +18,24 @@ function AutoComplete({ input, setInput }) {
   useEffect(() => {
     if (input.length === 0) {
       setLists([]);
+      setIsMoving(false);
       return;
     }
 
-    const filter = catagories.filter((cat) => cat.includes(input));
-    setLists(filter);
+    if (!isMoving) {
+      const filter = catagories.filter((cat) => cat.includes(input));
+      setLists(filter);
+    }
   }, [input]);
+
+  useEffect(() => {
+    if (activeListCount > -1) {
+      setIsMoving(true);
+      setInput(lists[activeListCount]);
+    } else {
+      setIsMoving(false);
+    }
+  }, [activeListCount]);
 
   return (
     <>
@@ -47,12 +62,30 @@ function AutoComplete({ input, setInput }) {
           placeholder="Search"
           value={input}
           onInput={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (lists.length > 0) {
+              if (e.key.toLowerCase() === "arrowdown") {
+                if (activeListCount < lists.length - 1)
+                  setActiveListCount((prev) => prev + 1);
+                else if (activeListCount === lists.length - 1)
+                  setActiveListCount(0);
+              } else if (e.key.toLowerCase() === "arrowup") {
+                if (activeListCount > 0) setActiveListCount((prev) => prev - 1);
+                else if (activeListCount === 0)
+                  setActiveListCount(lists.length - 1);
+              } else {
+                setActiveListCount(-1);
+              }
+            }
+          }}
         />
       </label>
       <ul className="mt-3">
-        {lists.map((list) => (
+        {lists.map((list, index) => (
           <li
-            className="flex items-center gap-3 ps-3 cursor-pointer py-3 hover:bg-base-300 rounded-box"
+            className={`flex items-center gap-3 ps-3 cursor-pointer py-3 hover:bg-base-300 rounded-box ${
+              index === activeListCount ? "bg-base-300" : ""
+            }`}
             key={list}
           >
             <svg
