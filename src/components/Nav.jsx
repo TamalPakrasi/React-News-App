@@ -1,6 +1,16 @@
 import { useState, useEffect } from "react";
 
-function Nav() {
+function Nav({ setPage }) {
+  const catagories = [
+    "business",
+    "entertainment",
+    "general",
+    "health",
+    "science",
+    "sports",
+    "technology",
+  ];
+
   const preferTheme = () => {
     return matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
@@ -37,7 +47,7 @@ function Nav() {
   };
 
   return (
-    <div className="navbar bg-transparent backdrop-blur-2xl shadow-sm sticky top-0 left-0">
+    <div className="navbar bg-transparent backdrop-blur-2xl shadow-sm sticky top-0 left-0 z-9999">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -62,13 +72,24 @@ function Nav() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>Homepage</a>
+              <button onClick={() => setPage("home")}>Homepage</button>
             </li>
             <li>
-              <a>Portfolio</a>
-            </li>
-            <li>
-              <a>About</a>
+              <button onClick={() => setPage("news")}>News</button>
+              <ul>
+                {catagories.map((catagory) => (
+                  <li key={catagory}>
+                    <button
+                      onClick={() => {
+                        setPage("news");
+                      }}
+                      className="capitalize"
+                    >
+                      {catagory}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </li>
           </ul>
         </div>
@@ -106,7 +127,10 @@ function Nav() {
             </svg>
           </label>
         </button>
-        <button className="btn btn-ghost btn-circle">
+        <button
+          className="btn btn-ghost btn-circle"
+          onClick={() => document.getElementById("browsernews").showModal()}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"
